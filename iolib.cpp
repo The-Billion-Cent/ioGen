@@ -8,6 +8,9 @@ ioGen::ioGen()
 
 }
 
+ioGen::ioGen(unsigned int __min, unsigned int __max, std::string strCharSet){
+	ioGen();
+}
 ioGen::ioGen(unsigned int __min, unsigned int __max, std::vector <char> __ioCharSet)
 	:ioCharSet{__ioCharSet}, ioBase{static_cast<unsigned int> (__ioCharSet.size())}, ioCombination(__min, 0), minLen{__min}, maxLen{__max}{
     this->isCharComb = true; //this step helps us to determind how to form words during the write to file process
