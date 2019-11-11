@@ -5,15 +5,7 @@
 #include <ctype.h>
 
 
-unsigned int intMagnitudeFromChar(char *strAddr[]){
-	//we reveive a pointer as an argument
 
-	int magnitude; //we'll adding each interation to this variable
-
-	// if we reach this part of the function
-
-	return magnitude;
-}	
 
 bool isValidNumber(std::string strNum){ 
 	
@@ -31,8 +23,14 @@ bool isValidNumber(std::string strNum){
 }
 
 int main(int argc, char *argv[]){
+	
 	if(argc > 1){
-		if(isValidNumber(std::string(argv[1]))){std::cout << "the number is valid" << std::endl;}
+		if(isValidNumber(std::string(argv[1]))){
+			std::cout << "the number is valid and is of magnitude " << intMagnitudeFromChar(std::string(argv[1])) << std::endl; 
+			if(argc > 2){
+				std::cout << "now supports more arguments" << std::endl;
+			}
+		}
 	}
 
 	ioGen charGen{1,6,std::vector<char> {'z','i','t'}};//{1,6,std::vector<std::string> {"Ipetrade","Gaby","Gaga","@","0","1","2","3","4","5","6","7","8","9"}};
