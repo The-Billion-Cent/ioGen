@@ -31,9 +31,9 @@ bool isValidNumber(std::string strNum){
 }
 
 int main(int argc, char *argv[]){
-
-	if(isValidNumber(std::string(argv[1]))){std::cout << "the number is valid" << std::endl;}
-	
+	if(argc > 1){
+		if(isValidNumber(std::string(argv[1]))){std::cout << "the number is valid" << std::endl;}
+	}
 
 	ioGen charGen{1,6,std::vector<char> {'z','i','t'}};//{1,6,std::vector<std::string> {"Ipetrade","Gaby","Gaga","@","0","1","2","3","4","5","6","7","8","9"}};
 	
