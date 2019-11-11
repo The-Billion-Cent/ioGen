@@ -46,7 +46,9 @@ private:
 public:
 
 	ioGen();
-
+	
+	ioGen(unsigned int __min, unsigned int __max, std::string stdCharSet);
+	
 	ioGen(unsigned int __min, unsigned int __max, std::vector<char> __ioCharSet);
 
 	ioGen(unsigned int __min, unsigned int __max, std::vector<std::string> __ioStringSet);
