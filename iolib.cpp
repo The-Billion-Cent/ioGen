@@ -4,13 +4,33 @@
 #include <math.h>
 
 ioGen::ioGen()
-:ioGen{8, 8, std::vector<char>{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'}}{
+:ioGen{2, 2, std::vector<char>{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'}}
+{
 
 }
 
 ioGen::ioGen(unsigned int __min, unsigned int __max, std::string strCharSet){
-	ioGen();
+	
+	std::vector <char> finalCharSet;
+	
+	for(char strChar: strCharSet){
+		switch(strChar){
+			case 'l':
+			case 'L': for(char setChar: this->lowerCharSet){finalCharSet.push_back(setChar);} break;
+			case 'u':
+			case 'U': for(char setChar: this->upperCharSet){finalCharSet.push_back(setChar);} break;
+			case 'n':
+			case 'N': for(char setChar: this->numericalCharSet){finalCharSet.push_back(setChar);} break;
+			case 's':
+			case 'S': for(char setChar: this->specialCharSet){finalCharSet.push_back(setChar);} break;
+			default : break;
+		}
+	}
+
+	ioGen{__min, __max, finalCharSet};
 }
+
+
 ioGen::ioGen(unsigned int __min, unsigned int __max, std::vector <char> __ioCharSet)
 	:ioCharSet{__ioCharSet}, ioBase{static_cast<unsigned int> (__ioCharSet.size())}, ioCombination(__min, 0), minLen{__min}, maxLen{__max}{
     this->isCharComb = true; //this step helps us to determind how to form words during the write to file process
@@ -139,11 +159,11 @@ unsigned int ioGen::combinationMaxCount(){
 	    	digitPow--;
    		}
 
-   		std::cout << "the value of the initial count is " << initCount - 1 << std::endl;
+   		std::cout << "the value of the initial count is " << initCount << std::endl;
 
     }
 
-    return (tmpCount) - (initCount -1);
+    return (tmpCount) - (initCount);
 }
 
 void ioGen::writeToFile(){
