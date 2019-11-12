@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <math.h>
+#include <string>
 
 class ioArgParser{
 	
@@ -11,9 +12,14 @@ private:
 	
 	std::map<std::string, std::string> argMap;
 	
-	bool isArgRight();
+	bool isArgValid();
 	
-public:	
+	bool isNumberValid();
+	
+	int argNumber();
+	
+public:
+
 	ioArgParser(std::vector<std::string> __argVec);
 	
 };
