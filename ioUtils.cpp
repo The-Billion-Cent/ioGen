@@ -4,9 +4,7 @@ ioArgParser::ioArgParser(std::vector<std::string> __argVec){
 	
 	unsigned int argSize{static_cast<unsigned int>(__argVec.size())};
 	
-	unsigned int parsedArgSize{0};
-	
-	unsigned int targetArgSize{0};
+	unsigned int foundArgSize{0};
 	
 	std::string tmpStr{""};
 	
@@ -15,28 +13,24 @@ ioArgParser::ioArgParser(std::vector<std::string> __argVec){
 	
 	for(unsigned int counter = 0; counter < argSize; counter += 2){
 		this->argMap.insert(std::make_pair(__argVec.at(counter), __argVec.at(counter + 1)));
-		targetArgSize+= 1;
 	}
 	
 	
-	mapIter = this->argMap.begin();
+	mapIter = this->argMap.begin(); 
 	
 	while(mapIter != this->argMap.end()){
 		
-		std::cout << " entered e" << std::endl;
-		
-		if(mapIter->first == "min"){
-			std::cout << "min is located" << std::endl;
+		if     (mapIter->first == "-mn"){ foundArgSize++; }
+		else if(mapIter->first == "-mx"){ foundArgSize++;}
+		else if(mapIter->first == "-cs"){ foundArgSize++;}
+		else if(mapIter->first == "-ch"){ foundArgSize++;}
+		else if(mapIter->first == "-st"){ foundArgSize++;}
+		else{
+			std::cout << " <" << mapIter->first << "> " << " is not a required argument" << std::endl;
+			this->argMap.erase(mapIter);
 		}
 		
 		mapIter++;
-	}
-	
-	std::cout << "the size of our argMap is " << this->argMap.size() << std::endl;
-	
-	if(parsedArgSize == targetArgSize){
-		//if we enter here, then everything is okay with the arguments key
-		std::cout << "everything is okay with our argument keys " << std::endl;
 	}
 	
 }
