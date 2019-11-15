@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
 	
 	
 	
-	ioGen charGen{1,6,std::vector<char> {'z','i','t'}};//{1,6,std::vector<std::string> {"Ipetrade","Gaby","Gaga","@","0","1","2","3","4","5","6","7","8","9"}};
+	ioGen charGen{inArg.deliverBoundery("-mn"),inArg.deliverBoundery("-mx"), inArg.deliverCharacters()};//{1,6,std::vector<std::string> {"Ipetrade","Gaby","Gaga","@","0","1","2","3","4","5","6","7","8","9"}};
 	
 	//charGen.setIncState(std::vector <unsigned int> {2,0,2,0,0,0});
 	
