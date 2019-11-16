@@ -12,9 +12,14 @@ ioArgParser::ioArgParser(std::vector<std::string> __argVec){
 	
 	std::vector<std::string> unrequiredArgs;
 	
-	for(unsigned int counter = 0; counter < argSize; counter += 2){
-		this->argMap.insert(std::make_pair(__argVec.at(counter), __argVec.at(counter + 1)));
+	if(__argVec.size() % 2 == 0){
+		for(unsigned int counter = 0; counter < argSize; counter += 2){
+			this->argMap.insert(std::make_pair(__argVec.at(counter), __argVec.at(counter + 1)));
+		}
+	}else{
+		std::cout << "some arguments have no operands" << std::endl;
 	}
+	
 	
 	
 	mapIter = this->argMap.begin(); 
@@ -35,21 +40,29 @@ ioArgParser::ioArgParser(std::vector<std::string> __argVec){
 	}
 	
 	if(foundArgSize == 3){
-		for(std::string argName: unrequiredArgs){this->argMap.erase(argName);} //get rid of unrequired arguments
+		if(unrequiredArgs.size() > 0){
+			for(std::string argName: unrequiredArgs){this->argMap.erase(argName);} //get rid of unrequired arguments
+		}
+		std::cout << "needed args are all provided" << std::endl;
 	}else{
 		std::cout << " we expect a command of the form \n -mn 4 -mx 6 -c luns" << std::endl;
 	}
 	
+	std::cout << "the initialization is complete" << std::endl;
 }
+
 std::string ioArgParser::setArgs(){
-	std::string argSetType;
+	std::string argSetType{""};
 	
 	std::map<std::string, std::string>::iterator mapIter = this->argMap.begin();
+	
 	while(mapIter != this->argMap.end()){
-		if(mapIter->first == "-cs") this->usingCharSet = true; std::string argSetType = "-cs";
-		else if(mapIter->first == "-ch") this->usingCharacters = true; std::string argSetType = "-ch";
-		else if(mapIter->frist == "-st") this->usingStrings = true; std::string argSetType = "-st";
-		else continue;
+		if(mapIter->first == "-cs") {this->usingCharSet = true; argSetType += "-cs";}
+		else if(mapIter->first == "-ch") {this->usingCharacters = true; argSetType += "-ch";}
+		else if(mapIter->first == "-st") {this->usingStrings = true; argSetType += "-st";}
+		
+		std::cout << "we are in this loop" << std::endl;
+		mapIter++;
 	}
 	return argSetType;
 }
@@ -94,24 +107,26 @@ unsigned int ioArgParser::extractIntFromString(std::string numChar){
 	return magnitude;
 }	
 
-int deliverBoundery(std::string bounderName){
+int ioArgParser::deliverBoundery(std::string bounderyName){
 	int result{0};
 	
-	if(bounderyName == "-mn" && this->isNumberValid(this->argMap["-mn"])) result = this->extractIntFromString(this->argMap["-mn"]);
-	else if(bounderyName == "-mx" && this->isNumberValid(this->argMap["-mx"])) result = this->extractIntFromString(this->argMap["-mx"]);
-	else result = -1;
+	if(bounderyName == "-mn" && this->isNumberValid(this->argMap["-mn"])){
+		result = this->extractIntFromString(this->argMap["-mn"]);
+	}else if(bounderyName == "-mx" && this->isNumberValid(this->argMap["-mx"])){
+		result = this->extractIntFromString(this->argMap["-mx"]);
+	}else{ result = -1; }
 	
 	return result;
 }
 
-std::string deliverCharSet(){
+std::string ioArgParser::deliverCharSet(){
 	std::string charSet;
 	if(this->usingCharSet == true) charSet = this->argMap["-cs"];
 	
 	return charSet;
 }
 
-std::vector<char> deliverCharacters(){
+std::vector<char> ioArgParser::deliverCharacters(){
 	std::vector <char> tmpCharVec;
 	if(this->usingCharacters == true){
 		for(char tmpChar: this->argMap["-ch"]){tmpCharVec.push_back(tmpChar);}

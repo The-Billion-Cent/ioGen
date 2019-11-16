@@ -6,7 +6,7 @@
 ioGen::ioGen()
 :ioGen{2, 2, std::vector<char>{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'}}
 {
-
+	
 }
 
 ioGen::ioGen(unsigned int __min, unsigned int __max, std::string strCharSet){
@@ -35,7 +35,7 @@ ioGen::ioGen(unsigned int __min, unsigned int __max, std::vector <char> __ioChar
 	:ioCharSet{__ioCharSet}, ioBase{static_cast<unsigned int> (__ioCharSet.size())}, ioCombination(__min, 0), minLen{__min}, maxLen{__max}{
     this->isCharComb = true; //this step helps us to determind how to form words during the write to file process
     ioTmpFile.open("outputFile.txt");
-
+	std::cout << "you are the cause of all my problems" << __ioCharSet.size() << std::endl;
 }
 
 ioGen::ioGen(unsigned int __min, unsigned int __max, std::vector<std::string> __ioStringSet)
