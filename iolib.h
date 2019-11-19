@@ -35,6 +35,8 @@ private:
 	bool ioIncrement();
 
 	bool shouldAddDigit();
+	
+	std::vector<char> genVecFromCharSet(std::string strCharSet);
 
 	bool isCharComb;
 

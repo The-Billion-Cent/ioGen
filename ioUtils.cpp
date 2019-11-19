@@ -121,6 +121,7 @@ int ioArgParser::deliverBoundery(std::string bounderyName){
 
 std::string ioArgParser::deliverCharSet(){
 	std::string charSet;
+	
 	if(this->usingCharSet == true) charSet = this->argMap["-cs"];
 	
 	return charSet;

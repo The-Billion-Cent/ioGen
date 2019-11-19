@@ -9,11 +9,38 @@ ioGen::ioGen()
 	
 }
 
-ioGen::ioGen(unsigned int __min, unsigned int __max, std::string strCharSet){
+ioGen::ioGen(unsigned int __min, unsigned int __max, std::string strCharSet)
+:ioCharSet{genVecFromCharSet(strCharSet)},
+ ioBase{static_cast<unsigned int> (genVecFromCharSet(strCharSet).size())},
+ ioCombination(__min, 0), minLen{__min}, maxLen{__max}{
+	for(unsigned int num: ioCombination){std::cout << num << " , "; }
+	 
+	this->isCharComb = true;
+	 
+	ioTmpFile.open("outputFile.txt");
+}
+
+
+ioGen::ioGen(unsigned int __min, unsigned int __max, std::vector <char> __ioCharSet)
+	:ioCharSet{__ioCharSet}, ioBase{static_cast<unsigned int> (__ioCharSet.size())}, ioCombination(__min, 0), minLen{__min}, maxLen{__max}{
+    this->isCharComb = true; //this step helps us to determind how to form words during the write to file process
+    
+	ioTmpFile.open("outputFile.txt");
+	
+}
+
+ioGen::ioGen(unsigned int __min, unsigned int __max, std::vector<std::string> __ioStringSet)
+    :ioStringSet{__ioStringSet}, ioBase{static_cast<unsigned int>(__ioStringSet.size())},ioCombination(__min, 0), minLen{__min}, maxLen{__max}{
+    this->isCharComb = false; //this step helps us to determind how to form words during the write to file process
+    ioTmpFile.open("outputFile.txt");
+}
+
+std::vector<char> ioGen::genVecFromCharSet(std::string strCharSet){
 	
 	std::vector <char> finalCharSet;
 	
 	for(char strChar: strCharSet){
+		
 		switch(strChar){
 			case 'l':
 			case 'L': for(char setChar: this->lowerCharSet){finalCharSet.push_back(setChar);} break;
@@ -25,27 +52,14 @@ ioGen::ioGen(unsigned int __min, unsigned int __max, std::string strCharSet){
 			case 'S': for(char setChar: this->specialCharSet){finalCharSet.push_back(setChar);} break;
 			default : break;
 		}
+		
 	}
-
-	ioGen{__min, __max, finalCharSet};
+	
+	return finalCharSet;
 }
-
-
-ioGen::ioGen(unsigned int __min, unsigned int __max, std::vector <char> __ioCharSet)
-	:ioCharSet{__ioCharSet}, ioBase{static_cast<unsigned int> (__ioCharSet.size())}, ioCombination(__min, 0), minLen{__min}, maxLen{__max}{
-    this->isCharComb = true; //this step helps us to determind how to form words during the write to file process
-    ioTmpFile.open("outputFile.txt");
-	std::cout << "you are the cause of all my problems" << __ioCharSet.size() << std::endl;
-}
-
-ioGen::ioGen(unsigned int __min, unsigned int __max, std::vector<std::string> __ioStringSet)
-    :ioStringSet{__ioStringSet}, ioBase{static_cast<unsigned int>(__ioStringSet.size())},ioCombination(__min, 0), minLen{__min}, maxLen{__max}{
-    this->isCharComb = false; //this step helps us to determind how to form words during the write to file process
-    ioTmpFile.open("outputFile.txt");
-}
-
 
 bool ioGen::setIncState(std::vector<unsigned int> __ioCombination){
+	
 	bool status {false};
 
 	this->ioCombinationAddr = new std::vector<unsigned int> (__ioCombination);
@@ -134,7 +148,7 @@ void ioGen::printCombination(){
             tmpStr += this->ioStringSet.at(n);
         }
     }
-
+	
 	std::cout << tmpStr << std::endl;
 }
 
@@ -149,9 +163,7 @@ unsigned int ioGen::combinationMaxCount(){
     for(unsigned int i = this->minLen; i <= this->maxLen; i++){
         tmpCount += std::pow(static_cast<unsigned int>(this->ioBase), static_cast<unsigned int>(i));
     }
-
-    std::cout << "the value of the tmpCount is " << tmpCount << std::endl;
-    
+	
     if(this->setIncStateCalled == true){
     	for(unsigned int j = 0; j <= this->ioCombination.size(); j++){
 	    	if(digitPow == -1){break;}
@@ -167,8 +179,11 @@ unsigned int ioGen::combinationMaxCount(){
 }
 
 void ioGen::writeToFile(){
-    std::string tmpStr{""};
-    if(isCharComb == true){
+    
+	std::string tmpStr{""};
+	std::cout << ioCharSet.size() << std::endl;
+	
+	if(isCharComb == true){
         for (unsigned int n: this->ioCombination){tmpStr = tmpStr + this->ioCharSet.at(n);}
     }else if (isCharComb == false){
         for (unsigned int n: this->ioCombination){tmpStr = tmpStr + this->ioStringSet.at(n);}
@@ -178,7 +193,6 @@ void ioGen::writeToFile(){
 	if (this->ioCombination != std::vector<unsigned int>(this->maxLen, this->ioBase - 1)){
 		this->ioTmpFile << tmpStr << "\n";
 	}else{this->ioTmpFile << tmpStr;}
-
 }
 
 void ioGen::closeFile(){

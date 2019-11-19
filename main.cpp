@@ -13,35 +13,46 @@ int main(int argc, char *argv[]){
 	
 	for (int count = 1; count < argc; count++){ argVec.push_back(std::string(argv[count])); }
 	
-	ioArgParser inArg {argVec};
+	ioArgParser ioGenMainArg {argVec};
 	
-	std::string argSet{inArg.setArgs()};
-	std::cout << "argSet is allright and value is " << argSet << std::endl;
+	std::string argSet{ioGenMainArg.setArgs()};
+	
+	ioGen * ioGenMainGen{nullptr};
 	
 	if( argSet == "-ch"){
+		
 		std::cout << "we entered the conditional statement" << std::endl;
 		
-		ioGen charGen{static_cast<unsigned int> (inArg.deliverBoundery(std::string{"-mn"})),static_cast<unsigned int>(inArg.deliverBoundery(std::string{"-mx"})), inArg.deliverCharacters()};
+		ioGenMainGen = new ioGen {static_cast<unsigned int> (ioGenMainArg.deliverBoundery(std::string{"-mn"})), static_cast<unsigned int>(ioGenMainArg.deliverBoundery(std::string{"-mx"})), ioGenMainArg.deliverCharacters()};
 		
-		std::cout << "we managed to here" << std::endl;
+	}else if(argSet == "-cs"){
+		std::cout << "the character set mode is activated" << std::endl;
 		
-		unsigned int maxCount = charGen.combinationMaxCount();
-
-		std::cout << maxCount;
-
-		charGen.writeToFile();
-		
-		for(unsigned int counter = 1; counter < maxCount; counter++){
-
-				charGen.ioIncWrapper();
-				charGen.writeToFile();
-
-		}
-
-		charGen.closeFile();
+		ioGenMainGen = new ioGen {static_cast<unsigned int> (ioGenMainArg.deliverBoundery(std::string{"-mn"})), static_cast<unsigned int> (ioGenMainArg.deliverBoundery(std::string{"-mx"})), std::string {ioGenMainArg.deliverCharSet()}};
+	
 	}
 	//charGen.setIncState(std::vector <unsigned int> {2,0,2,0,0,0});
 	
+	
+	
+		std::cout << "we managed to here" << std::endl;
+		
+		unsigned int maxCount = (*ioGenMainGen).combinationMaxCount();
+		
+		std::cout << "the max count is " << maxCount << std::endl;
+		
+		(*ioGenMainGen).writeToFile();
+		
+		std::cout << "namic" << std::endl;
+		
+		for(unsigned int counter = 1; counter < maxCount; counter++){
+
+				(*ioGenMainGen).ioIncWrapper();
+				(*ioGenMainGen).writeToFile();
+
+		}
+
+		(*ioGenMainGen).closeFile();
 
 	
 	
