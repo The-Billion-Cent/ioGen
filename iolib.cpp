@@ -10,9 +10,12 @@ ioGen::ioGen()
 }
 
 ioGen::ioGen(unsigned int __min, unsigned int __max, std::string strCharSet)
-:ioCharSet{genVecFromCharSet(strCharSet)},
+:
  ioBase{static_cast<unsigned int> (genVecFromCharSet(strCharSet).size())},
  ioCombination(__min, 0), minLen{__min}, maxLen{__max}{
+	 
+	this->ioCharSet = genVecFromCharSet(strCharSet); //ioCharSet initialization fails, but this works good
+	
 	for(unsigned int num: ioCombination){std::cout << num << " , "; }
 	 
 	this->isCharComb = true;
@@ -181,8 +184,8 @@ unsigned int ioGen::combinationMaxCount(){
 void ioGen::writeToFile(){
     
 	std::string tmpStr{""};
-	std::cout << ioCharSet.size() << std::endl;
-	
+	std::cout << "the size of ioCharSet is " <<ioCharSet.size() << std::endl;
+	std::cout << "and the ioBas is " << ioBase << std::endl;
 	if(isCharComb == true){
         for (unsigned int n: this->ioCombination){tmpStr = tmpStr + this->ioCharSet.at(n);}
     }else if (isCharComb == false){

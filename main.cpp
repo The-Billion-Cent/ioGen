@@ -33,17 +33,10 @@ int main(int argc, char *argv[]){
 	}
 	//charGen.setIncState(std::vector <unsigned int> {2,0,2,0,0,0});
 	
-	
-	
-		std::cout << "we managed to here" << std::endl;
 		
 		unsigned int maxCount = (*ioGenMainGen).combinationMaxCount();
 		
-		std::cout << "the max count is " << maxCount << std::endl;
-		
 		(*ioGenMainGen).writeToFile();
-		
-		std::cout << "namic" << std::endl;
 		
 		for(unsigned int counter = 1; counter < maxCount; counter++){
 
