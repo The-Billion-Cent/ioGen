@@ -60,8 +60,6 @@ std::string ioArgParser::setArgs(){
 		if(mapIter->first == "-cs") {this->usingCharSet = true; argSetType += "-cs";}
 		else if(mapIter->first == "-ch") {this->usingCharacters = true; argSetType += "-ch";}
 		else if(mapIter->first == "-st") {this->usingStrings = true; argSetType += "-st";}
-		
-		std::cout << "we are in this loop" << std::endl;
 		mapIter++;
 	}
 	return argSetType;
@@ -88,8 +86,9 @@ unsigned int ioArgParser::extractIntFromString(std::string numChar){
 	
 	int digitPower{static_cast<int>(numChar.size()) - 1};
 	
-	for(char tmpChar: numChar){
-		switch(tmpChar){
+	for(int tmpChar: numChar){ // int was char
+		//
+		/*switch(tmpChar){
 			case '9': magnitude += 9 * std::pow(10, digitPower); digitPower--; break;
 			case '8': magnitude += 8 * std::pow(10, digitPower); digitPower--; break;
 			case '7': magnitude += 7 * std::pow(10, digitPower); digitPower--; break;
@@ -101,7 +100,11 @@ unsigned int ioArgParser::extractIntFromString(std::string numChar){
 			case '1': magnitude += 1 * std::pow(10, digitPower); digitPower--; break;
 			case '0': magnitude += 0 * std::pow(10, digitPower); digitPower--; break;
 			default: std::cerr << "\n \t something unexpected just happened \n" << std::endl; break;
-		}
+		}*/
+		
+		//the above switch statement is not the best approach
+		
+		magnitude += (tmpChar - 48) * pow(10, digitPower); digitPower--; //48 is the ascii of zero
 	}
 
 	return magnitude;

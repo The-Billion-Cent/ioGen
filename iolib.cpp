@@ -170,11 +170,12 @@ unsigned int ioGen::combinationMaxCount(){
     if(this->setIncStateCalled == true){
     	for(unsigned int j = 0; j <= this->ioCombination.size(); j++){
 	    	if(digitPow == -1){break;}
-	    	initCount += (this->ioCombination.at(j) + 1) * (std::pow (static_cast<unsigned int>(this->ioBase), static_cast<int>(digitPow)));
+	    	initCount += (this->ioCombination.at(j)) * (std::pow (static_cast<unsigned int>(this->ioBase), static_cast<int>(digitPow)));
 	    	digitPow--;
    		}
 
    		std::cout << "the value of the initial count is " << initCount << std::endl;
+		
 
     }
 
@@ -184,8 +185,8 @@ unsigned int ioGen::combinationMaxCount(){
 void ioGen::writeToFile(){
     
 	std::string tmpStr{""};
-	std::cout << "the size of ioCharSet is " <<ioCharSet.size() << std::endl;
-	std::cout << "and the ioBas is " << ioBase << std::endl;
+	//std::cout << "the size of ioCharSet is " <<ioCharSet.size() << std::endl;
+	//std::cout << "and that of ioBase is " << ioBase << std::endl;
 	if(isCharComb == true){
         for (unsigned int n: this->ioCombination){tmpStr = tmpStr + this->ioCharSet.at(n);}
     }else if (isCharComb == false){
