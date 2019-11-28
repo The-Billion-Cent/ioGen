@@ -32,6 +32,7 @@
 int main(int argc, char *argv[]){
 	
 	std::system("clear");
+	std::cout << std::setw(10) <<"alex" << "christian" << std::endl;
 	
 	std::vector <std::string> argVec;
 	
