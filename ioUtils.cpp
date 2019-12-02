@@ -13,9 +13,14 @@ ioArgParser::ioArgParser(std::vector<std::string> __argVec){
 	std::vector<std::string> unrequiredArgs;
 	
 	if(__argVec.size() % 2 == 0){
-		for(unsigned int counter = 0; counter < argSize; counter += 2){
-			this->argMap.insert(std::make_pair(__argVec.at(counter), __argVec.at(counter + 1)));
+		if(__argVec.size() == 0){
+			std::cout << "no arguments was entered, entering the interactive mode " << std::endl;
+		}else if(__argVec.size() != 0){
+			for(unsigned int counter = 0; counter < argSize; counter += 2){
+				this->argMap.insert(std::make_pair(__argVec.at(counter), __argVec.at(counter + 1)));
+			}	
 		}
+		
 	}else{
 		std::cout << "some arguments have no operands" << std::endl;
 	}
