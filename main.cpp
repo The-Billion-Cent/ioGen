@@ -36,6 +36,13 @@
 #define IOBOLDCYAN    "\033[1m\033[36m"
 #define IOBOLDWHITE   "\033[1m\033[37m"
 
+void genInstance(std::vector <unsigned int> incState, std::vector <unsigned int> finalState){
+	
+}
+
+void genInstance(){
+	std::cout << "hello world" << std::endl;
+}
 
 int main(int argc, char *argv[]){
 	
@@ -81,6 +88,9 @@ int main(int argc, char *argv[]){
 		std::cout << "unpredictable behaviour" << std::endl;
 	}
 	
+	genInstance();
+	
+	genInstance(std::vector<unsigned int> (4,0), std::vector<unsigned int> (8,0));
+	
 	return 0;
 }
-
